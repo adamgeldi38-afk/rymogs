@@ -1,0 +1,604 @@
+--[[
+
+  /$$$$$$  /$$       /$$$$$$  /$$$$$$  /$$$$$$$$ /$$$$$$$ 
+ /$$__  $$| $$      |_  $$_/ /$$__  $$| $$_____/| $$__  $$
+| $$  \__/| $$        | $$  | $$  \__/| $$      | $$  \ $$
+|  $$$$$$ | $$        | $$  | $$      | $$$$$   | $$  | $$
+ \____  $$| $$        | $$  | $$      | $$__/   | $$  | $$
+ /$$  \ $$| $$        | $$  | $$    $$| $$      | $$  | $$
+|  $$$$$$/| $$$$$$$$ /$$$$$$|  $$$$$$/| $$$$$$$$| $$$$$$$/
+ \______/ |________/|______/ \______/ |________/|_______/
+
+              [ LEAKED BY SLICED ]
+            [ discord.gg/pubmethod ]
+
+]]
+
+if not game:IsLoaded() then game.Loaded:Wait() end
+
+do
+	local print = print
+	local warn = warn
+	local tbl = {}
+	local n = 250
+	local slicedtbl2 = {}
+	local slicedn2 = 0
+	local now = os.clock()
+
+	local function fn(arg, slicedarg2, slicedarg3, slicedarg4, slicedarg5)  -- LEAKED BY SLICED | discord.gg/pubmethod
+		local str = "[rymogs:" .. tostring(slicedarg2) .. "] " .. tostring(slicedarg3)
+		tbl[#tbl + 1] = string.format("%8.2f %s %s", os.clock() - now, arg, str)
+		if #tbl > n then table.remove(tbl, 1) end
+		slicedarg4 = slicedarg4 or str
+		local now2 = os.clock()
+		local slicedv3 = slicedtbl2[slicedarg4]
+		local flag
+		if slicedv3 then
+			flag = now2 - slicedv3 < (slicedarg5 or 1)
+		else  -- LEAKED BY SLICED | discord.gg/pubmethod
+			flag = slicedv3
+		end
+		if flag then return end
+		if not slicedv3 then
+			slicedn2 += 1
+			if slicedn2 > 600 then
+				slicedtbl2 = {}
+				slicedn2 = 0
+			end
+		end  -- LEAKED BY SLICED | discord.gg/pubmethod
+		slicedtbl2[slicedarg4] = now2
+		if arg == "W" then
+			if _G.RyQuiet ~= true then pcall(warn, str) end
+		elseif _G.RyDebug ~= false then
+			pcall(print, str)
+		end
+	end
+	_G.RyLog = function(arg, slicedarg2, slicedarg3, slicedarg4) fn("I", arg, slicedarg2, slicedarg3, slicedarg4) end
+	_G.RyWarn = function(arg, slicedarg2, slicedarg3, slicedarg4) fn("W", arg, slicedarg2, slicedarg3, slicedarg4) end
+	local ryLogFileName = "rymogs_tp_" .. os.date("%Y%m%d_%H%M%S") .. ".txt"
+	local slicedtbl3 = {}  -- LEAKED BY SLICED | discord.gg/pubmethod
+	local now2 = os.clock()
+
+	local function ryLogFlush()
+		if #slicedtbl3 == 0 then return end
+		local str = table.concat(slicedtbl3, "\n") .. "\n"
+		slicedtbl3 = {}
+		now2 = os.clock()
+		pcall(function()
+			if appendfile then
+				appendfile(ryLogFileName, str)
+			elseif writefile then
+				writefile(ryLogFileName, (isfile and readfile and isfile(ryLogFileName) and readfile(ryLogFileName) or "") .. str)  -- LEAKED BY SLICED | discord.gg/pubmethod
+			end
+		end)
+	end
+
+	_G.RyFileLog = function(arg, slicedarg2)
+		if _G.RyLogFile == false then return end
+		local slicedn3 = #slicedtbl3 + 1
+		local tostring = tostring
+		slicedtbl3[slicedn3] = string.format("%8.2f [%s] %s", os.clock() - now, tostring(arg), tostring(slicedarg2))
+		if #slicedtbl3 >= 25 or os.clock() - now2 > 2 then ryLogFlush() end
+	end  -- LEAKED BY SLICED | discord.gg/pubmethod
+	_G.RyLogFileName = ryLogFileName
+	_G.RyLogFlush = ryLogFlush
+	task.spawn(function()
+		while true do
+			task.wait(3)
+			pcall(ryLogFlush)
+		end
+	end)
+
+	_G.RyDump = function()
+		local str = table.concat(tbl, "\n")  -- LEAKED BY SLICED | discord.gg/pubmethod
+		pcall(print, "===== RYMOGS LOG (" .. #tbl .. " lines) =====\n" .. str)
+		local slicedv3 = setclipboard or toclipboard
+		if type(slicedv3) == "function" then pcall(slicedv3, str) end
+		return str
+	end
+end
+
+do
+	local ryHubJobId = tostring(game.JobId)
+	local ryHubJobId2 = _G.RyHubJobId
+	if ryHubJobId2 ~= nil then  -- LEAKED BY SLICED | discord.gg/pubmethod
+		pcall(function()
+			if _G.RyInvisActive == true and type(_G.RyInvisStop) == "function" then _G.RyInvisStop("session") end
+		end)
+		pcall(function()
+			if _G.RyAltInvisActive == true and type(_G.RyAltInvisStop) == "function" then _G.RyAltInvisStop() end
+		end)
+	end
+	_G.RyHubSession = (tonumber(_G.RyHubSession) or 0) + 1
+	_G.RyHubJobId = ryHubJobId
+	_G.RyHubLoadedAt = os.clock()  -- LEAKED BY SLICED | discord.gg/pubmethod
+	for _, v in ipairs({
+		"StealTargetUID",
+		"StealTarget",
+		"TPSyncActive",
+		"SelectedPet",
+		"ActiveStealUid",
+		"MyPlot",
+		"ApproachFails",
+		"NoApproachFor",
+		"LastApproach",  -- LEAKED BY SLICED | discord.gg/pubmethod
+		"RyBestTarget",
+		"StealTgt",
+		"GrappleShotToken",
+		"_TPSyncGen",
+		"LastFire",
+		"StealFails",
+		"__Plat",
+		"RagdollUntil",
+		"RagdollPhysLastT",
+		"StealHoldDuration",  -- LEAKED BY SLICED | discord.gg/pubmethod
+	}) do
+		_G[v] = nil
+	end
+	for _, v in ipairs({
+		"TPStop",
+		"StealHold",
+		"RyTPActive",
+		"RyStealHold",
+		"isCloning",
+		"__ResetBusy",  -- LEAKED BY SLICED | discord.gg/pubmethod
+		"RyInvisActive",
+		"RyAltInvisActive",
+		"InvisActive",
+		"invisibleStealEnabled",
+		"RecoveryInProgress",
+		"ChannelsReady",
+	}) do
+		_G[v] = false
+	end
+	_G.RyLog("init", string.format("session %d, server %s%s", _G.RyHubSession, ryHubJobId:sub(1, 8), ryHubJobId2 == ryHubJobId and " (re-executed in the same server)" or ""))  -- LEAKED BY SLICED | discord.gg/pubmethod
+end
+
+if type(getgenv) ~= "function" then getgenv = function() return _G end end
+
+local HttpService = game:GetService("HttpService")
+local TweenService = game:GetService("TweenService")
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
+local Stats  -- LEAKED BY SLICED | discord.gg/pubmethod
+
+do
+	local Lighting = game:GetService("Lighting")
+	Stats = game:GetService("Stats")
+	game:GetService("PathfindingService")
+	_G.RyFpsBoost = false
+	local MaterialService = game:GetService("MaterialService")
+	local tbl = nil
+	local slicedtbl2 = nil
+	local connection = nil
+	local slicedtbl3 = nil  -- LEAKED BY SLICED | discord.gg/pubmethod
+
+	local function fn()
+		if tbl then return end
+		tbl = {
+			GlobalShadows = Lighting.GlobalShadows,
+			FogEnd = Lighting.FogEnd,
+			FogStart = Lighting.FogStart,
+			EnvironmentDiffuseScale = Lighting.EnvironmentDiffuseScale,
+			EnvironmentSpecularScale = Lighting.EnvironmentSpecularScale,
+		}
+		pcall(function()  -- LEAKED BY SLICED | discord.gg/pubmethod
+			tbl.Quality = settings().Rendering.QualityLevel
+			tbl.Mesh = settings().Rendering.MeshPartDetailLevel
+		end)
+		pcall(function()
+			local terrain = Workspace.Terrain
+			tbl.Decoration = terrain.Decoration
+			tbl.WaterWaveSize = terrain.WaterWaveSize
+			tbl.WaterWaveSpeed = terrain.WaterWaveSpeed
+			tbl.WaterReflectance = terrain.WaterReflectance
+		end)  -- LEAKED BY SLICED | discord.gg/pubmethod
+	end
+
+	local function slicedfn2(arg)
+		if arg.Name:sub(1, 2) == "Ry" then return true end
+		local v
+		local parent = v.Parent
+		while parent and parent ~= Workspace do
+			if parent.Name:sub(1, 2) == "Ry" then return true end
+			parent = parent.Parent
+		end
+		return false  -- LEAKED BY SLICED | discord.gg/pubmethod
+	end
+
+	local function slicedfn3(arg)
+		local character = Players.LocalPlayer.Character
+		return character and arg:IsDescendantOf(character)
+	end
+
+	local function slicedfn4(arg)
+		if slicedfn2(arg) or slicedfn3(arg) then return end
+		return (pcall(function()
+			if arg:IsA("ParticleEmitter") or arg:IsA("Trail") or arg:IsA("Beam") or arg:IsA("Fire") or arg:IsA("Smoke") or arg:IsA("Sparkles") or arg:IsA("PointLight") or arg:IsA("SpotLight") or arg:IsA("SurfaceLight") then
+				if arg.Enabled then  -- LEAKED BY SLICED | discord.gg/pubmethod
+					slicedtbl3[#slicedtbl3 + 1] = { o = arg, k = "Enabled", v = true }
+					arg.Enabled = false
+				end
+			elseif arg:IsA("Decal") or arg:IsA("Texture") then
+				if not (arg.Name == "face" and arg.Parent and arg.Parent.Name == "Head") then
+					if arg.Transparency < 1 then
+						slicedtbl3[#slicedtbl3 + 1] = { o = arg, k = "Transparency", v = arg.Transparency }
+						arg.Transparency = 1
+					end
+				end  -- LEAKED BY SLICED | discord.gg/pubmethod
+			elseif arg:IsA("BasePart") then
+				if arg.CastShadow then
+					slicedtbl3[#slicedtbl3 + 1] = { o = arg, k = "CastShadow", v = true }
+					arg.CastShadow = false
+				end
+				if arg.Reflectance > 0 then
+					slicedtbl3[#slicedtbl3 + 1] = { o = arg, k = "Reflectance", v = arg.Reflectance }
+					arg.Reflectance = 0
+				end
+			end  -- LEAKED BY SLICED | discord.gg/pubmethod
+		end))
+	end
+
+	local function slicedfn5()
+		fn()
+		slicedtbl3 = {}
+		pcall(function()
+			local level01 = Enum.QualityLevel.Level01
+			settings().Rendering.QualityLevel = level01
+			local level012 = Enum.MeshPartDetailLevel.Level01
+			settings().Rendering.MeshPartDetailLevel = level012  -- LEAKED BY SLICED | discord.gg/pubmethod
+		end)
+		pcall(function()
+			settings().Physics.AllowSleep = true
+			local skip = Enum.EnviromentalPhysicsThrottle.Skip
+			settings().Physics.PhysicsEnvironmentalThrottle = skip
+		end)
+		pcall(function()
+			Lighting.GlobalShadows = false
+			Lighting.FogEnd = 9e9
+			Lighting.FogStart = 9e9  -- LEAKED BY SLICED | discord.gg/pubmethod
+			Lighting.EnvironmentDiffuseScale = 0
+			Lighting.EnvironmentSpecularScale = 0
+		end)
+		pcall(function()
+			for _, child in ipairs(Lighting:GetChildren()) do
+				if child:IsA("Atmosphere") then
+					slicedtbl3[#slicedtbl3 + 1] = { o = child, k = "Density", v = child.Density }
+					child.Density = 0
+				elseif child:IsA("Clouds") or child:IsA("PostEffect") then
+					if child.Enabled then  -- LEAKED BY SLICED | discord.gg/pubmethod
+						slicedtbl3[#slicedtbl3 + 1] = { o = child, k = "Enabled", v = true }
+						child.Enabled = false
+					end
+				end
+			end
+		end)
+		pcall(function()
+			local terrain = Workspace.Terrain
+			terrain.Decoration = false
+			terrain.WaterWaveSize = 0  -- LEAKED BY SLICED | discord.gg/pubmethod
+			terrain.WaterWaveSpeed = 0
+			terrain.WaterReflectance = 0
+		end)
+		if _G.RyFpsMaterials ~= false then
+			pcall(function()
+				slicedtbl2 = {}
+				for _, v in ipairs(Enum.Material:GetEnumItems()) do
+					pcall(function()
+						local baseMaterialOverride = MaterialService:GetBaseMaterialOverride(v)
+						if baseMaterialOverride ~= "" then  -- LEAKED BY SLICED | discord.gg/pubmethod
+							slicedtbl2[#slicedtbl2 + 1] = { m = v, v = baseMaterialOverride }
+							MaterialService:SetBaseMaterialOverride(v, "")
+						end
+					end)
+				end
+			end)
+		end
+		task.spawn(function()
+			local ryFpsSwept = 0
+			for _, descendant in ipairs(Workspace:GetDescendants()) do  -- LEAKED BY SLICED | discord.gg/pubmethod
+				if not _G.RyFpsBoost then return end
+				slicedfn4(descendant)
+				ryFpsSwept += 1
+				if ryFpsSwept % (tonumber(_G.RyFpsBatch) or 400) == 0 then RunService.Heartbeat:Wait() end
+			end
+			_G.RyFpsSwept = ryFpsSwept
+		end)
+		if connection then connection:Disconnect() end
+		connection = Workspace.DescendantAdded:Connect(function(descendant)
+			if _G.RyFpsBoost then slicedfn4(descendant) end  -- LEAKED BY SLICED | discord.gg/pubmethod
+		end)
+	end
+
+	local function slicedfn6()
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+		if tbl then
+			pcall(function()
+				if tbl.Quality then  -- LEAKED BY SLICED | discord.gg/pubmethod
+					local quality = tbl.Quality
+					settings().Rendering.QualityLevel = quality
+				end
+				if tbl.Mesh then
+					local mesh = tbl.Mesh
+					settings().Rendering.MeshPartDetailLevel = mesh
+				end
+			end)
+			pcall(function()
+				Lighting.GlobalShadows = tbl.GlobalShadows  -- LEAKED BY SLICED | discord.gg/pubmethod
+				Lighting.FogEnd = tbl.FogEnd
+				Lighting.FogStart = tbl.FogStart
+				Lighting.EnvironmentDiffuseScale = tbl.EnvironmentDiffuseScale
+				Lighting.EnvironmentSpecularScale = tbl.EnvironmentSpecularScale
+			end)
+			pcall(function()
+				local terrain = Workspace.Terrain
+				if tbl.Decoration ~= nil then terrain.Decoration = tbl.Decoration end
+				terrain.WaterWaveSize = tbl.WaterWaveSize or terrain.WaterWaveSize
+				terrain.WaterWaveSpeed = tbl.WaterWaveSpeed or terrain.WaterWaveSpeed  -- LEAKED BY SLICED | discord.gg/pubmethod
+				terrain.WaterReflectance = tbl.WaterReflectance or terrain.WaterReflectance
+			end)
+		end
+		if slicedtbl2 then
+			for _, v in ipairs(slicedtbl2) do
+				pcall(function()
+					MaterialService:SetBaseMaterialOverride(v.m, v.v)
+				end)
+			end
+			slicedtbl2 = nil  -- LEAKED BY SLICED | discord.gg/pubmethod
+		end
+		if slicedtbl3 then
+			for i = #slicedtbl3, 1, -1 do
+				local v = slicedtbl3[i]
+				if v.o and v.o.Parent then
+					pcall(function()
+						v.o[v.k] = v.v
+					end)
+				end
+			end  -- LEAKED BY SLICED | discord.gg/pubmethod
+			slicedtbl3 = nil
+		end
+	end
+
+	_G.RySetFpsBoost = function(arg)
+		local ryFpsBoost = arg and true or false
+		if ryFpsBoost == (_G.RyFpsBoost == true) then return ryFpsBoost end
+		_G.RyFpsBoost = ryFpsBoost
+		if ryFpsBoost then
+			slicedfn5()
+		else  -- LEAKED BY SLICED | discord.gg/pubmethod
+			slicedfn6()
+		end
+		return ryFpsBoost
+	end
+end
+
+local v, getNetRemote
+
+do
+	local packages = nil
+	v = nil
+
+	local function fn()  -- LEAKED BY SLICED | discord.gg/pubmethod
+		if v then return v end
+		if not packages then
+			packages = game:GetService("ReplicatedStorage"):WaitForChild("Packages", 5)
+			if packages then packages = packages:WaitForChild("Net", 5) end
+		end
+		if not packages then return nil end
+		local ok, result = pcall(require, packages)
+		if ok and type(result) == "table" then v = result end
+		return v
+	end  -- LEAKED BY SLICED | discord.gg/pubmethod
+	local getupvalues_ = debug.getupvalues or getupvalues
+	local slicedv2 = nil
+
+	local function slicedfn2()
+		local slicedv3 = fn()
+		if not slicedv3 or not getupvalues_ then return nil end
+		local tbl = {}
+		local slicedv4 = nil
+		local jobId = game.JobId
+		local slicedfn3 = nil
+
+		slicedfn3 = function(arg, slicedarg2)  -- LEAKED BY SLICED | discord.gg/pubmethod
+			if slicedarg2 > 4 or slicedv4 or tbl[arg] then return end
+			tbl[arg] = true
+			for _, slicedv5 in pairs(arg) do
+				if slicedv4 then return end
+				local kind = typeof(slicedv5)
+				if kind == "string" and #slicedv5 == 36 and slicedv5 ~= jobId and slicedv5:match("^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$") then
+					slicedv4 = slicedv5
+					return
+				end
+				if kind == "table" then  -- LEAKED BY SLICED | discord.gg/pubmethod
+					slicedfn3(slicedv5, slicedarg2 + 1)
+				elseif kind == "function" then
+					local ok, result = pcall(getupvalues_, slicedv5)
+					if ok and type(result) == "table" then slicedfn3(result, slicedarg2 + 1) end
+				end
+			end
+		end
+		for _, slicedv5 in ipairs({ "RemoteEvent", "RemoteFunction", "UnreliableRemoteEvent" }) do
+			local value = rawget(slicedv3, slicedv5)
+			if type(value) == "function" then  -- LEAKED BY SLICED | discord.gg/pubmethod
+				local ok, result = pcall(getupvalues_, value)
+				if ok and type(result) == "table" then slicedfn3(result, 0) end
+			end
+			if not slicedv4 then continue end
+			break
+		end
+		return slicedv4
+	end
+
+	local function slicedfn3(arg)
+		local jobId = game.JobId  -- LEAKED BY SLICED | discord.gg/pubmethod
+		local tbl = {}
+		local n = 1
+		for i = 1, #arg do
+			local slicedv3 = arg:byte(i)
+			if slicedv3 == 47 then
+				tbl[#tbl + 1] = "/"
+			else
+				tbl[#tbl + 1] = string.char((slicedv3 - 32 + jobId:byte((n - 1) % 36 + 1) % 95) % 95 + 32)
+				n += 1
+			end
+		end  -- LEAKED BY SLICED | discord.gg/pubmethod
+		return table.concat(tbl)
+	end
+	local slicedv3 = bit32
+	if not slicedv3 then slicedv3 = debug.getupvalues(bit32 and bit32.band or print) end
+	local bor = nil
+	local bxor = nil
+	local bnot = nil
+	local band
+	if slicedv3 then
+		band = slicedv3.band  -- LEAKED BY SLICED | discord.gg/pubmethod
+		bor = slicedv3.bor
+		bxor = slicedv3.bxor
+		bnot = slicedv3.bnot
+	else
+		band = function(arg) return arg end
+	end
+	local rrotate = nil
+	local rshift = nil
+	local lshift = nil
+	if slicedv3 then  -- LEAKED BY SLICED | discord.gg/pubmethod
+		rrotate = slicedv3.rrotate
+		rshift = slicedv3.rshift
+		lshift = slicedv3.lshift
+	end
+	local tbl = {
+		1116352408,
+		1899447441,
+		3049323471,
+		3921009573,
+		961987163,  -- LEAKED BY SLICED | discord.gg/pubmethod
+		1508970993,
+		2453635748,
+		2870763221,
+		3624381080,
+		310598401,
+		607225278,
+		1426881987,
+		1925078388,
+		2162078206,
+		2614888103,  -- LEAKED BY SLICED | discord.gg/pubmethod
+		3248222580,
+		3835390401,
+		4022224774,
+		264347078,
+		604807628,
+		770255983,
+		1249150122,
+		1555081692,
+		1996064986,
+		2554220882,  -- LEAKED BY SLICED | discord.gg/pubmethod
+		2821834349,
+		2952996808,
+		3210313671,
+		3336571891,
+		3584528711,
+		113926993,
+		338241895,
+		666307205,
+		773529912,
+		1294757372,  -- LEAKED BY SLICED | discord.gg/pubmethod
+		1396182291,
+		1695183700,
+		1986661051,
+		2177026350,
+		2456956037,
+		2730485921,
+		2820302411,
+		3259730800,
+		3345764771,
+		3516065817,  -- LEAKED BY SLICED | discord.gg/pubmethod
+		3600352804,
+		4094571909,
+		275423344,
+		430227734,
+		506948616,
+		659060556,
+		883997877,
+		958139571,
+		1322822218,
+		1537002063,  -- LEAKED BY SLICED | discord.gg/pubmethod
+		1747873779,
+		1955562222,
+		2024104815,
+		2227730452,
+		2361852424,
+		2428436474,
+		2756734187,
+		3204031479,
+		3329325298,
+	}  -- LEAKED BY SLICED | discord.gg/pubmethod
+	local function slicedfn4(arg) return band and band(arg, 4294967295) or arg end
+
+	local function slicedfn5(arg)
+		local slicedtbl2 = { 1779033703, 3144134277, 1013904242, 2773480762, 1359893119, 2600822924, 528734635, 1541459225 }
+		local n = #arg
+		local str = arg .. "\128"
+		while #str % 64 ~= 56 do str ..= "\0" end
+		local slicedn2 = n * 8
+		local slicedtbl3 = {}
+		for i = 8, 1, -1 do
+			slicedtbl3[i] = string.char(slicedn2 % 256)
+			slicedn2 = math.floor(slicedn2 / 256)  -- LEAKED BY SLICED | discord.gg/pubmethod
+		end
+		local slicedstr2 = str .. table.concat(slicedtbl3)
+		for i = 1, #slicedstr2, 64 do
+			local slicedtbl4 = {}
+			for i2 = 0, 15 do
+				local slicedv4, slicedv5, slicedv6, slicedv7 = string.byte(slicedstr2, i + i2 * 4, i + i2 * 4 + 3)
+				slicedtbl4[i2] = bor(lshift(slicedv4, 24), lshift(slicedv5, 16), lshift(slicedv6, 8), slicedv7)
+			end
+			for i2 = 16, 63 do
+				local slicedv4 = slicedtbl4[i2 - 15]  -- LEAKED BY SLICED | discord.gg/pubmethod
+				local slicedv5 = slicedtbl4[i2 - 2]
+				local slicedv6 = bxor
+				slicedtbl4[i2] = slicedfn4(slicedtbl4[i2 - 16] + bxor(rrotate(slicedv4, 7), rrotate(slicedv4, 18), rshift(slicedv4, 3)) + slicedtbl4[i2 - 7] + slicedv6(rrotate(slicedv5, 17), rrotate(slicedv5, 19), rshift(slicedv5, 10)))
+			end
+			local slicedv4 = slicedtbl2[1]
+			local slicedv5 = slicedtbl2[2]
+			local slicedv6 = slicedtbl2[3]
+			local slicedv7 = slicedtbl2[4]
+			local slicedv8 = slicedtbl2[5]
+			local slicedv9 = slicedtbl2[6]  -- LEAKED BY SLICED | discord.gg/pubmethod
+			local slicedv10 = slicedtbl2[7]
+			local slicedv11 = slicedtbl2[8]
+			for i2 = 0, 63 do
+				local slicedv12 = bxor
+				local slicedv13 = band
+				local slicedv14 = tbl[i2 + 1]
+				local slicedv15 = slicedfn4(slicedv11 + bxor(rrotate(slicedv8, 6), rrotate(slicedv8, 11), rrotate(slicedv8, 25)) + slicedv12(band(slicedv8, slicedv9), slicedv13(bnot(slicedv8), slicedv10)) + slicedv14 + slicedtbl4[i2])
+				local slicedv16 = bxor
+				local slicedv17 = slicedfn4(bxor(rrotate(slicedv4, 2), rrotate(slicedv4, 13), rrotate(slicedv4, 22)) + slicedv16(band(slicedv4, slicedv5), band(slicedv4, slicedv6), band(slicedv5, slicedv6)))
+				local slicedv18 = slicedfn4(slicedv7 + slicedv15)  -- LEAKED BY SLICED | discord.gg/pubmethod
+				slicedv11 = slicedv10
+				slicedv7 = slicedv6
+				slicedv10 = slicedv9
+				slicedv6 = slicedv5
+				slicedv9 = slicedv8
+				slicedv5 = slicedv4
+				slicedv8 = slicedv18
+				slicedv4 = slicedfn4(slicedv15 + slicedv17)
+			end
+			slicedtbl2[1] = slicedfn4(slicedtbl2[1] + slicedv4)  -- LEAKED BY SLICED | discord.gg/pubmethod
+			slicedtbl2[2] = slicedfn4(slicedtbl2[2] + slicedv5)
+			slicedtbl2[3] = slicedfn4(slicedtbl2[3] + slicedv6)
+			slicedtbl2[4] = slicedfn4(slicedtbl2[4] + slicedv7)
+			slicedtbl2[5] = slicedfn4(slicedtbl2[5] + slicedv8)
+			slicedtbl2[6] = slicedfn4(slicedtbl2[6] + slicedv9)
+			slicedtbl2[7] = slicedfn4(slicedtbl2[7] + slicedv10)
+			slicedtbl2[8] = slicedfn4(slicedtbl2[8] + slicedv11)
+		end
+		local slicedtbl4 = {}
+		for i = 1, 8 do  -- LEAKED BY SLICED | discord.gg/pubmethod
+			local 
